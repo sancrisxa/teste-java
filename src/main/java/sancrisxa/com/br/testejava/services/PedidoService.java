@@ -2,6 +2,8 @@ package sancrisxa.com.br.testejava.services;
 
 import sancrisxa.com.br.testejava.dtos.PedidoDto;
 
+import java.util.List;
+
 public interface PedidoService {
-    PedidoDto savePedido(PedidoDto pedidoDto);
+    List<PedidoDto> savePedido(List<PedidoDto> pedidoListDto);
 }

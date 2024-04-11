@@ -3,6 +3,7 @@ package sancrisxa.com.br.testejava.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import sancrisxa.com.br.testejava.dtos.PedidoDto;
 import sancrisxa.com.br.testejava.services.PedidoService;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/pedidos")
@@ -22,12 +24,10 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping
-    public ResponseEntity<PedidoDto> createPedido(@Valid @RequestBody PedidoDto pedidoDto) {
+    public ResponseEntity<List<PedidoDto>> createPedido(@Valid @RequestBody List<PedidoDto> pedidoListDto) {
 
-        PedidoDto pedidoDtoCreated = this.pedidoService.savePedido(pedidoDto);
+        List<PedidoDto> pedidoListDtoCreated = this.pedidoService.savePedido(pedidoListDto);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pedidoDtoCreated.getCodigoCliente()).toUri();
-
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoListDto);
     }
 }

@@ -1,44 +1,54 @@
 package sancrisxa.com.br.testejava.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
+import sancrisxa.com.br.testejava.models.Cliente;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Component
 public class PedidoDto {
-    private Integer codigoCliente;
+    private Integer codigoPedido;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataCadastro;
     @NotEmpty
     private String nome;
+    @Column(unique=true)
     @NotNull
     private Integer numeroControle;
     private Integer quantidade;
     @NotNull
     private BigDecimal valor;
 
+    @NotNull
+    private ClienteDto clienteDto;
+
+    private BigDecimal valorTotal;
+
     public PedidoDto() {
     }
 
-    public PedidoDto(Integer codigoCliente, LocalDateTime dataCadastro, String nome, Integer numeroControle, Integer quantidade, BigDecimal valor) {
-        this.codigoCliente = codigoCliente;
+    public PedidoDto(Integer codigoPedido, LocalDateTime dataCadastro, String nome, Integer numeroControle, Integer quantidade, BigDecimal valor, ClienteDto clienteDto, BigDecimal valorTotal) {
+        this.codigoPedido = codigoPedido;
         this.dataCadastro = dataCadastro;
         this.nome = nome;
         this.numeroControle = numeroControle;
         this.quantidade = quantidade;
         this.valor = valor;
+        this.clienteDto = clienteDto;
+        this.valorTotal = valorTotal;
     }
 
-    public Integer getCodigoCliente() {
-        return codigoCliente;
+    public Integer getCodigoPedido() {
+        return codigoPedido;
     }
 
-    public void setCodigoCliente(Integer codigoCliente) {
-        this.codigoCliente = codigoCliente;
+    public void setCodigoPedido(Integer codigoPedido) {
+        this.codigoPedido = codigoPedido;
     }
 
     public LocalDateTime getDataCadastro() {
@@ -79,5 +89,21 @@ public class PedidoDto {
 
     public void setValor(BigDecimal valor) {
         this.valor = valor;
+    }
+
+    public ClienteDto getClienteDto() {
+        return clienteDto;
+    }
+
+    public void setClienteDto(ClienteDto clienteDto) {
+        this.clienteDto = clienteDto;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }

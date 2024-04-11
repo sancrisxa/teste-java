@@ -1,10 +1,7 @@
 package sancrisxa.com.br.testejava.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,35 +13,45 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codigoCliente;
+    private Integer codigoPedido;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataCadastro;
     @NotEmpty
     private String nome;
+    @Column(unique=true)
     @NotNull
     private Integer numeroControle;
     private Integer quantidade;
     @NotNull
     private BigDecimal valor;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "codigo_cliente")
+    private Cliente cliente;
+
+    @NotNull
+    private BigDecimal valorTotal;
+
     public Pedido() {
     }
 
-    public Pedido(Integer codigoCliente, LocalDateTime dataCadastro, String nome, Integer numeroControle, Integer quantidade, BigDecimal valor) {
-        this.codigoCliente = codigoCliente;
+    public Pedido(Integer codigoPedido, LocalDateTime dataCadastro, String nome, Integer numeroControle, Integer quantidade, BigDecimal valor, Cliente cliente, BigDecimal valorTotal) {
+        this.codigoPedido = codigoPedido;
         this.dataCadastro = dataCadastro;
         this.nome = nome;
         this.numeroControle = numeroControle;
         this.quantidade = quantidade;
         this.valor = valor;
+        this.cliente = cliente;
+        this.valorTotal = valorTotal;
     }
 
-    public Integer getCodigoCliente() {
-        return codigoCliente;
+    public Integer getCodigoPedido() {
+        return codigoPedido;
     }
 
-    public void setCodigoCliente(Integer codigoCliente) {
-        this.codigoCliente = codigoCliente;
+    public void setCodigoPedido(Integer codigoPedido) {
+        this.codigoPedido = codigoPedido;
     }
 
     public LocalDateTime getDataCadastro() {
@@ -85,5 +92,21 @@ public class Pedido {
 
     public void setValor(BigDecimal valor) {
         this.valor = valor;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }
