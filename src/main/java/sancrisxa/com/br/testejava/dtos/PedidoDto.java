@@ -41,12 +41,12 @@ public class PedidoDto {
         this.codigoCliente = codigoCliente;
     }
 
-    public LocalDateTime getData_cadastro() {
+    public LocalDateTime getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setData_cadastro(LocalDateTime data_cadastro) {
-        this.dataCadastro = data_cadastro;
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     public String getNome() {
