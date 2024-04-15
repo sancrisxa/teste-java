@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import sancrisxa.com.br.testejava.Exceptions.customs.PedidoMaximoExcedidoException;
 
 @ControllerAdvice
@@ -45,7 +46,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException e) {
         StandardError error = new StandardError(System.currentTimeMillis(),
-                HttpStatus.BAD_REQUEST.value(), "Numero controle não poder ser duplicado.");
+                HttpStatus.BAD_REQUEST.value(), e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<StandardError> handlerMethodValidationException(HandlerMethodValidationException e) {
+        StandardError error = new StandardError(System.currentTimeMillis(),
+                HttpStatus.BAD_REQUEST.value(), e.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
