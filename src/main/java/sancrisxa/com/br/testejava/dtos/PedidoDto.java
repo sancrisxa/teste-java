@@ -23,23 +23,22 @@ public class PedidoDto {
     private Integer quantidade;
     @NotNull
     private BigDecimal valor;
-
     @NotNull
-    private ClienteDto clienteDto;
+    private Cliente cliente;
 
     private BigDecimal valorTotal;
 
     public PedidoDto() {
     }
 
-    public PedidoDto(Integer codigoPedido, LocalDateTime dataCadastro, String nome, Integer numeroControle, Integer quantidade, BigDecimal valor, ClienteDto clienteDto, BigDecimal valorTotal) {
+    public PedidoDto(Integer codigoPedido, LocalDateTime dataCadastro, String nome, Integer numeroControle, Integer quantidade, BigDecimal valor, Cliente cliente, BigDecimal valorTotal) {
         this.codigoPedido = codigoPedido;
         this.dataCadastro = dataCadastro;
         this.nome = nome;
         this.numeroControle = numeroControle;
         this.quantidade = quantidade;
         this.valor = valor;
-        this.clienteDto = clienteDto;
+        this.cliente = cliente;
         this.valorTotal = valorTotal;
     }
 
@@ -91,12 +90,12 @@ public class PedidoDto {
         this.valor = valor;
     }
 
-    public ClienteDto getClienteDto() {
-        return clienteDto;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteDto(ClienteDto clienteDto) {
-        this.clienteDto = clienteDto;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public BigDecimal getValorTotal() {

@@ -5,15 +5,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.*;
 import sancrisxa.com.br.testejava.dtos.PedidoDto;
 import sancrisxa.com.br.testejava.services.PedidoService;
+import sancrisxa.com.br.testejava.services.spec.PedidoSpecification;
 
-import java.net.URI;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @RestController
@@ -28,6 +25,14 @@ public class PedidoController {
 
         List<PedidoDto> pedidoListDtoCreated = this.pedidoService.savePedido(pedidoListDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoListDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoListDtoCreated);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PedidoDto>> buscarPedidos(PedidoDto pedidoDto, Pageable pageable) {
+
+        List<PedidoDto> pedidoListDtoCreated = this.pedidoService.buscarPedidos(pedidoDto, pageable);
+
+        return ResponseEntity.ok().body(pedidoListDtoCreated);
     }
 }
